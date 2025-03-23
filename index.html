@@ -1,64 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choi Gym Homepage</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Django Setup Guide</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <header id="bar">
-        <a id="text"href="#">Homepage</a>
-        <a id="text"href="#">Membership</a>
-        <a id="text"href="#">AboutUs</a>
+    <header>
+        <h1>Django Setup Guide</h1>
     </header>
-<section>
-	<h1>
-	python -m venv myvenv
-myvenv\Scripts\activate
-myvenv\Scripts\Activate.ps1
-python -m pip install Django
-django-admin startproject myproject
-cd myproject
-python manage.py runserver
 
-python manage.py startapp myapp
+    <section>
+        <h2>Step-by-Step Instructions</h2>
+        <p>
+            python -m venv myvenv<br>
+            myvenv\Scripts\activate<br>
+            myvenv\Scripts\Activate.ps1<br>
+            python -m pip install Django<br>
+            django-admin startproject myproject<br>
+            cd myproject<br>
+            python manage.py runserver<br><br>
+            python manage.py startapp myapp
+        </p>
 
-DO this if getting error
-Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+        <h2>Troubleshooting</h2>
+        <p>
+            If you get an error, run:<br>
+            <code>Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser</code>
+        </p>
 
-----------------------------------------------------------------------------------
-Go to "Installed Apps" in settings and put 'myapp'
-Go to "Templates" in settings and put 'DIRS': [os.path.join(BASE_DIR, 'templates')],
-Go to "Static" in settings and put STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
---------------------------------------------------------------------------------------
-Go to myproject/myapp then create "urls.py"
+        <h2>Settings Configuration</h2>
+        <p>
+            In <strong>settings.py</strong>:<br>
+            - Add <code>'myapp'</code> to <strong>INSTALLED_APPS</strong><br>
+            - Add templates: <code>'DIRS': [os.path.join(BASE_DIR, 'templates')]</code><br>
+            - Add static files: <code>STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]</code>
+        </p>
 
-In that "urls.py" do
-
+        <h2>URL Configuration</h2>
+        <p>
+            1. Create a new <strong>urls.py</strong> in <code>myproject/myapp</code>:<br>
+            <pre>
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.home, name='home'),]
---------------------------------------------------------
+    path('', views.home, name='home'),
+]
+            </pre>
 
-In the second "myproject" go to "urls.py" and do
-
+            2. In <code>myproject/urls.py</code>, include the app URLs:<br>
+            <pre>
 from django.urls import path, include
 
-path('', include('myapp.urls')),
-------------------------------------------------------------
-In views.py do
+urlpatterns = [
+    path('', include('myapp.urls')),
+]
+            </pre>
+        </p>
 
+        <h2>Views Configuration</h2>
+        <p>
+            In <code>views.py</code> add this function:<br>
+            <pre>
 def home(request):
-             return render(request, 'index.html')
+    return render(request, 'index.html')
+            </pre>
+        </p>
 
---------------------------------------------------------------------------------------
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-<img src="{% static 'images/logo.png' %}" alt="Logo"> 
-	<h1>
-	</section>
+        <h2>Static Files Usage</h2>
+        <p>
+            Use these lines in your HTML template to load static files:<br>
+            <pre>
+{% raw %}{% load static %}{% endraw %}
+<link rel="stylesheet" href="{% raw %}{% static 'css/style.css' %}{% endraw %}">
+<link rel="stylesheet" href="{% raw %}{% static 'css/styles.css' %}{% endraw %}">
+            </pre>
+        </p>
+    </section>
+
 </body>
+
 </html>
