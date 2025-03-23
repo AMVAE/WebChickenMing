@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choi Gym Homepage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="bar">
+        <a id="text"href="#">Homepage</a>
+        <a id="text"href="#">Membership</a>
+        <a id="text"href="#">AboutUs</a>
+    </header>
+<section>
+	<h1>
+	python -m venv myvenv
+myvenv\Scripts\activate
+myvenv\Scripts\Activate.ps1
+python -m pip install Django
+django-admin startproject myproject
+cd myproject
+python manage.py runserver
+
+python manage.py startapp myapp
+
+DO this if getting error
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
+
+----------------------------------------------------------------------------------
+Go to "Installed Apps" in settings and put 'myapp'
+Go to "Templates" in settings and put 'DIRS': [os.path.join(BASE_DIR, 'templates')],
+Go to "Static" in settings and put STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+--------------------------------------------------------------------------------------
+Go to myproject/myapp then create "urls.py"
+
+In that "urls.py" do
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),]
+--------------------------------------------------------
+
+In the second "myproject" go to "urls.py" and do
+
+from django.urls import path, include
+
+path('', include('myapp.urls')),
+------------------------------------------------------------
+In views.py do
+
+def home(request):
+             return render(request, 'index.html')
+
+--------------------------------------------------------------------------------------
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<img src="{% static 'images/logo.png' %}" alt="Logo"> 
+	<h1>
+	</section>
+</body>
+</html>
